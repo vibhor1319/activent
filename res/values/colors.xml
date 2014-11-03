@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <color name="leftGridColor">#5555AA</color>
+    <color name="rightGridColor">#AA5555</color>
+    <color name="tileBackgroundColor">#55AA55</color>
+    <color name="gridBg">#C9C9C9</color>
+    <color name="tileBg">#B1B1B1</color>
+    <color name="tileText">#E0E0E0</color>
+</resources>

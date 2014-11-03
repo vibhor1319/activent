@@ -24,5 +24,8 @@
         <item >Background</item>
         <item >Background with Sync</item>
     </string-array>
+    <string name="title_activity_occupancy_level">Occupancy Level</string>
+    <string name="current_occupancy_level">The current occupancy level is:</string>
+    <string name="undefinedVal">undefined</string>
     
 </resources>
