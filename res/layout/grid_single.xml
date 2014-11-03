@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="2" >
+    
+    <com.syphernova.learningandroid.flipboardtest.SquareGridItemView
+        android:id="@+id/grid_left"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="@dimen/mainLeftTileRightMargin"
+        android:textSize="24sp"
+        android:background="@color/tileBg"
+        android:textColor="@color/tileText"
+        style="@style/gridViewLeftItem" />
+    
+    <com.syphernova.learningandroid.flipboardtest.SquareGridItemView
+        android:id="@+id/grid_right"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/mainRightTileLeftMargin"
+        android:textSize="24sp"
+        android:background="@color/tileBg"
+        android:textColor="@color/tileText"
+        style="@style/gridViewRightItem" />
+
+</LinearLayout>
