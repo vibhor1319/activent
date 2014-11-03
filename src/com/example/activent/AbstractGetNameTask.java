@@ -1,18 +1,3 @@
-/*
- * Copyright 2012 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.example.activent;
 
@@ -21,9 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
-//import org.apache.commons.codec.binary.Base64;
+import javax.mail.MessagingException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,6 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+//import com.example.activent.TimeTagger.SUTimeParsingError;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.batch.BatchRequest;
@@ -62,7 +50,7 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
 	protected String mScope;
 	static List<Thread> threads=null;
 	protected String mEmail;
-
+static ArrayList<String> mail_data=new ArrayList<String>();
 	AbstractGetNameTask(HelloActivity activity, String email, String scope) {
 		this.mActivity = activity;
 		this.mScope = scope;
@@ -82,19 +70,33 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
 			ListThreadsResponse threadsResponse;
 			 threads = null;
 			try {
-				threadsResponse = mailService.users().threads().list("me").setMaxResults(Long.parseLong("15"))
+				threadsResponse = mailService.users().threads().list("me").setMaxResults(Long.parseLong("4"))
 						.execute();
 				threads = threadsResponse.getThreads();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//System.out.println("hello"+threads);
+			System.out.println("hello"+threads);
 			/*String 
 			
 			threads.toArray(array);*/
+			for(Thread thread:threads)
+			{
+				getMessage(mailService, "me", thread.get("id").toString());
+				
+			}
 			//System.out.println(threads.get(0).get("id"));
-			getMessage(mailService, "me", threads.get(0).get("id").toString());
+			//System.out.print(mail_data);
+			TimeTagger tg=new TimeTagger();
+			try {
+				tg.run_me(mail_data);
+			
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//getMessage(mailService, "me", threads.get(0).get("id").toString());
 			/*try {
 				//getMimeMessage(mailService, "me", threads.get(0).get("id").toString());
 			} catch (MessagingException e) {
@@ -102,7 +104,7 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
 				e.printStackTrace();
 			}
 			*/
-			batchrequest(mailService);
+			//batchrequest(mailService);
 			//return threads;
 		} catch (IOException ex) {
 			onError("Following Error occured, please try again. " + ex.getMessage(), ex);
@@ -217,10 +219,13 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
 		    Message message = service.users().messages().get(userId, messageId).setFormat("raw").execute();
 		 
 		  // System.out.println(message.getRaw());
-		    
+		 //   System.out.println(message.getPayload().getHeaders()..getValue()+"####"+message.getPayload().getHeaders().get(37).getValue());
 		   String s=new String(Base64.decode(message.getRaw(),Base64.URL_SAFE));
 		   // Base64.getDecoder().decode(message.getRaw().toString());
-		   System.out.println(s);
+		   
+		   
+		 //  System.out.println(s);
+		   mail_data.add(s);
 		   // System.out.println(base64UrlDecode(message.getRaw().toString()));
 		    return message;
 		  }
@@ -234,8 +239,12 @@ public abstract class AbstractGetNameTask extends AsyncTask<Void, Void, Void>{
 		    @Override
 		    public void onSuccess(Thread t, HttpHeaders responseHeaders)
 		            throws IOException {
-		        System.out.println("he"+t.getMessages().get(0).getPayload().getBody().getData());
-		    System.out.println("heee"+t.getMessages());
+		    //	String s=Base64.decode(t.getMessages().toString(),Base64.URL_SAFE).toString();
+		    //	System.out.println(s);
+		    //  System.out.println(t.getMessages());
+		      //mail_data.add(s);
+		    	
+		    	  System.out.println("heee"+t.getMessages());
 		    }
 
 		    @Override
