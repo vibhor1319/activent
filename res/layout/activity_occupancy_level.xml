@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/occLevel_root"
+    tools:context="com.syphernova.learningandroid.flipboardtest.OccupancyLevel" >
+
+    <TextView
+        android:id="@+id/occLevel_Desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/occupancyDescTextSize"
+        android:text="@string/current_occupancy_level" />
+    <RelativeLayout 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/occLevel_Desc" >
+        <ProgressBar 
+	       android:id="@+id/oLevel"
+	       android:layout_width="200dp"
+	       android:layout_height="200dp"
+	       android:layout_marginTop="10dp"
+	       android:layout_centerInParent="true"
+	       android:indeterminate="false"
+	       android:progressDrawable="@drawable/circular_progress_bar"
+	       android:background="@drawable/circle_shape"
+	       style="?android:attr/progressBarStyleHorizontal"
+	       android:max="100"
+	       android:progress="65"/>
+        <TextView 
+           android:id="@+id/oLevelText"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:textSize="@dimen/occupancyValTextSize"
+	       android:layout_centerInParent="true"
+	       android:layout_alignTop="@+id/oLevel"
+	       android:layout_marginTop="@dimen/occupancyValTopMargin"
+	       />
+    </RelativeLayout>
+    
+
+</RelativeLayout>
